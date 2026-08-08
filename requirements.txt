@@ -1,0 +1,16 @@
+pandas>=2.2.0
+numpy>=2.0.0
+
+scikit-learn>=1.8.0
+joblib>=1.4.2
+
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+
+pydantic>=2.10.0
+python-multipart>=0.0.9
+
+streamlit>=1.40.0
+requests>=2.32.0
+
+python-dotenv>=1.0.0
