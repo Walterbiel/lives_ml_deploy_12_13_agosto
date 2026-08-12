@@ -1,0 +1,10 @@
+azure-functions
+
+numpy==2.2.6
+pandas==2.2.3
+scikit-learn==1.7.1
+lightgbm==4.6.0
+joblib==1.5.1
+
+fastapi~=0.115
+pydantic~=2.10

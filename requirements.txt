@@ -1,16 +1,22 @@
-pandas>=2.2.0
-numpy>=2.0.0
+# ---- núcleo do modelo (pinado exato: precisa bater com o ambiente de treino) ----
+numpy==2.5.1
+scipy==1.18.0
+pandas==3.0.5
+scikit-learn==1.9.0
+joblib==1.5.3
 
-scikit-learn>=1.8.0
-joblib>=1.4.2
+# ---- API ----
+fastapi~=0.115
+uvicorn[standard]~=0.30
+pydantic~=2.10
 
-fastapi>=0.115.0
-uvicorn[standard]>=0.30.0
+# ---- interface ----
+streamlit~=1.40
+requests~=2.32
 
-pydantic>=2.10.0
-python-multipart>=0.0.9
+# ---- banco ----
+sqlalchemy~=2.0
+psycopg2-binary~=2.9
 
-streamlit>=1.40.0
-requests>=2.32.0
-
-python-dotenv>=1.0.0
+# ---- config ----
+python-dotenv~=1.0
