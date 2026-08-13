@@ -55,6 +55,109 @@ joblib        1.5.1
 Quanto mais distante o ambiente de produção estiver disso, maior o risco de `InconsistentVersionWarning` ou falha na desserialização. É o problema mais chato de deploy de ML, porque só aparece no `joblib.load`, já em produção.
 
 ---
+## Ambiente virtual
+
+Antes de qualquer coisa, crie um ambiente virtual. Ele isola as bibliotecas deste projeto das que estão instaladas no seu Python global, evitando que a versão do `scikit-learn` de um projeto quebre o `.pkl` de outro. Neste projeto isso é ainda mais importante, porque as versões precisam bater com as do treino do modelo.
+
+### Criando
+
+```powershell
+py -3.10 -m venv .venv
+```
+
+No Linux ou Mac:
+
+```bash
+python3.10 -m venv .venv
+```
+
+O `py -3.10` é o launcher do Windows escolhendo a versão. Se o Python 3.10 não estiver instalado, o comando falha, e vale instalar antes em vez de cair em outra versão.
+
+### Ativando
+
+O caminho do script de ativação depende de onde a pasta está e de qual terminal você usa.
+
+**Windows, `.venv` na pasta atual:**
+
+```powershell
+.\.venv\Scripts\activate
+```
+
+**Windows, `.venv` em outra pasta:**
+
+```powershell
+C:\Users\SeuUsuario\projetos\meu_projeto\.venv\Scripts\activate
+```
+
+Ou, se o caminho for relativo à pasta em que você está:
+
+```powershell
+..\.venv\Scripts\activate
+..\..\outro_projeto\.venv\Scripts\activate
+```
+
+**Windows, no CMD em vez do PowerShell:**
+
+```cmd
+.venv\Scripts\activate.bat
+```
+
+**Windows, Git Bash:**
+
+```bash
+source .venv/Scripts/activate
+```
+
+**Linux ou Mac:**
+
+```bash
+source .venv/bin/activate
+source /caminho/completo/para/.venv/bin/activate
+```
+
+### Se o PowerShell bloquear
+
+Libere apenas para a sessão atual, o que não altera a política da máquina:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+```
+
+### Confirmando que deu certo
+
+Depois de ativar, o terminal passa a exibir `(.venv)` no início da linha. Para ter certeza de que é o ambiente certo, e não o Python do sistema:
+
+```powershell
+python -c "import sys; print(sys.executable)"
+```
+
+O caminho impresso precisa apontar para dentro da sua pasta `.venv`.
+
+### Instalando as dependências
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+O `python -m pip` em vez de `pip` direto garante que o pip usado é o do ambiente ativo. Quando existem várias instalações de Python na máquina, o `pip` solto às vezes aponta para outra.
+
+### Sem ativar
+
+Também dá para usar o ambiente sem ativar, chamando o executável direto. Útil em scripts e agendadores:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe app.py
+```
+
+### Desativando
+
+```powershell
+deactivate
+```
+
+A pasta `.venv` é local e não vai para o Git nem para a imagem Docker: ela está listada no `.gitignore` e no `.dockerignore`.
+---
 
 # Deploy 1: Pipeline Batch no Databricks
 
